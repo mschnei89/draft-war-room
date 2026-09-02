@@ -6,16 +6,35 @@ anyone in the league show up automatically — you do nothing but look at it.
 
 League: **CG FF** (`1389690549467889664`) · 10 teams · 14 rounds · snake · full PPR
 
-## Running it
+## Where it lives
 
-Double-click **`Open Draft War Room.cmd`**. It starts a small local web server and opens
-the page. Leave the minimised server window running during the draft; close it when done.
+**https://mschnei89.github.io/draft-war-room/**
 
-Opening `index.html` directly from disk will probably work too, but the `.cmd` is the
-guaranteed path — a page served over `http://` is never subject to the extra restrictions
-browsers place on pages loaded from a file path.
+That is the one to use — it works on your phone and on any computer, with nothing running
+locally. Sleeper's API allows cross-origin reads, so the hosted page talks to it directly.
+
+Offline alternative: double-click **`Open Draft War Room.cmd`** to serve the same file from
+this folder on `http://localhost:8777`.
 
 Everything is in `index.html`. No build step, no dependencies, no install.
+
+## Alerts when it is your turn
+
+Press the **bell button** in the top bar once, and allow notifications. After that you get:
+
+- a **five-tone alarm** the moment the draft reaches your pick,
+- a **desktop/phone notification** naming who to take and why,
+- a single beep and an "on deck" notification when you are **two picks away**,
+- the browser tab title flashing **\*\* YOUR PICK \*\***.
+
+You have to press the bell each time you open the page — browsers only allow sound and
+notification permission to be armed by a real click.
+
+**On a phone:** open the URL, then use *Add to Home Screen* and launch it from that icon.
+On iOS this is required for web notifications to work at all; on Android Chrome the page
+alone is enough. Either way the page must stay open for the alarm to sound.
+
+There is no SMS. Nothing in this project can send a text message.
 
 ## What it is doing
 
@@ -86,3 +105,6 @@ The team selector in the top right controls whose draft slot it advises for. It 
   would be worse than omitting them.
 - Player projections are cached in your browser for 6 hours. The `↻` button forces a refresh
   of the draft state; clearing site data forces a full re-fetch of projections.
+- The repo is public, which is what GitHub Pages requires on a free account. It contains your
+  league ID — enough for anyone to look up the same public draft on Sleeper, and nothing more.
+  No credentials or private data are in it.
