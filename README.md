@@ -18,6 +18,27 @@ this folder on `http://localhost:8777`.
 
 Everything is in `index.html`. No build step, no dependencies, no install.
 
+## Is it live?
+
+The pill in the top bar answers that. It reads **LIVE · synced Ns ago**, where the counter
+ticks up every second and snaps back to 0 each time a poll lands (every 4 seconds), with a
+brief green flash. If a page is frozen or your connection has dropped, the counter keeps
+climbing and the pill turns amber: **RECONNECTING · last sync 34s ago**.
+
+Nothing needs to be started or refreshed. Open the page and leave it open.
+
+## On a phone
+
+Below 760px wide the layout switches to one section at a time, chosen with the
+**Pick / Board / My team** buttons under the header:
+
+- **Pick** — the recommendation, why, and the next four options.
+- **Board** — best available, trimmed to the columns that matter on a small screen
+  (player, position, +Lineup, ADP, Gone%). The rest come back on a wide screen.
+- **My team** — your roster, cost of waiting, and the pick feed.
+
+When the draft reaches your turn it jumps back to **Pick** on its own.
+
 ## Alerts when it is your turn
 
 Press the **bell button** in the top bar once, and allow notifications. After that you get:
