@@ -27,6 +27,10 @@ climbing and the pill turns amber: **RECONNECTING · last sync 34s ago**.
 
 Nothing needs to be started or refreshed. Open the page and leave it open.
 
+**It shuts itself off.** Once the draft is complete the page stops polling entirely and the
+pill reads **draft complete · updates off**. A tab left open on a phone will not sit there
+hitting Sleeper forever.
+
 ## On a phone
 
 Below 760px wide the layout switches to one section at a time, chosen with the

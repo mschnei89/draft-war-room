@@ -271,6 +271,12 @@ async function loadAll(){
   await pollPicks();
 }
 
+let pollTimer = null;
+function stopPolling(){
+  if(pollTimer){ clearInterval(pollTimer); pollTimer = null; }
+  S.pollingOff = true;
+}
+
 async function pollPicks(){
   try{
     const res = await Promise.all([
@@ -279,6 +285,10 @@ async function pollPicks(){
     ]);
     S.picks = res[0]; S.draft = res[1]; S.err = null; S.lastSync = Date.now();
   }catch(e){ S.err = e.message; }
+  // Once the draft is over there is nothing left to watch, so stop hitting the
+  // API. Otherwise a tab left open on a phone polls Sleeper forever.
+  if(S.draft && (S.draft.status === "complete" || S.picks.length >= S.draft.settings.teams*S.draft.settings.rounds))
+    stopPolling();
   render();
 }
 
@@ -683,7 +693,11 @@ function renderLive(){
   const ago  = age===null ? "" : age+"s ago";
   const dead = S.err || age===null || age > Math.max(12, (POLL_MS/1000)*3);
 
-  if(f.done){ st.className="onclock"; st.innerHTML="draft complete"; return; }
+  if(f.done || S.pollingOff){
+    st.className = "onclock";
+    st.innerHTML = "draft complete · updates off";
+    return;
+  }
 
   if(dead){
     st.className = "onclock stale";
@@ -1006,7 +1020,7 @@ document.getElementById("hStatus").title =
 setInterval(renderLive, 1000);
 
 loadAll()
-  .then(()=>{ setInterval(pollPicks, POLL_MS); })
+  .then(()=>{ if(!S.pollingOff) pollTimer = setInterval(pollPicks, POLL_MS); })
   .catch(e=>{ document.getElementById("app").innerHTML =
       '<div class="err">Could not load the draft: '+esc(e.message)+'</div>'; });
 </script>
